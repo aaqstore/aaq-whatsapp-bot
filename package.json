@@ -11,6 +11,7 @@
   "dependencies": {
     "@google/genai": "latest",
     "@whiskeysockets/baileys": "latest",
+    "express": "latest",
     "pino": "latest",
     "qrcode-terminal": "latest"
   }
