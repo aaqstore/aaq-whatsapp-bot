@@ -1,8 +1,6 @@
 {
   "name": "aaq-whatsapp-bot",
   "version": "1.0.0",
-  "description": "AI WhatsApp Bot for AAQ Store",
-  "main": "index.js",
   "type": "module",
   "engines": {
     "node": ">=20.0.0"
