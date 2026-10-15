@@ -9,10 +9,10 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@google/genai": "latest",
-    "@whiskeysockets/baileys": "latest",
-    "express": "latest",
-    "pino": "latest",
-    "qrcode-terminal": "latest"
+    "@google/genai": "^0.1.1",
+    "@whiskeysockets/baileys": "^6.7.8",
+    "express": "^4.19.2",
+    "pino": "^9.0.0",
+    "qrcode-terminal": "^0.12.0"
   }
 }
