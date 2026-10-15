@@ -1,13 +1,6 @@
-import express from 'express';
 import makeWASocket, { useMultiFileAuthState, DisconnectReason } from '@whiskeysockets/baileys';
 import { GoogleGenAI } from '@google/genai';
 import pino from 'pino';
-
-// Setup Express server dummy agar Railway tidak mematikan proses bot
-const app = express();
-const PORT = process.env.PORT || 3000;
-app.get('/', (req, res) => res.send('AAQ Store WhatsApp Bot is running!'));
-app.listen(PORT, () => console.log(`Server web aktif di port ${PORT}`));
 
 // Inisialisasi Google Gemini AI dengan API Key Anda
 const ai = new GoogleGenAI({ apiKey: 'AQ.Ab8RN6J9XXYIU_MSMBEiThP6HDXKeva7HY9e5hgir4Q14NQ' });
