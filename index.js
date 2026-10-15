@@ -1,16 +1,16 @@
-import { makeWASocket, useMultiFileAuthState, DisconnectReason } from '@whiskeysockets/baileys';
+import makeWASocket, { useMultiFileAuthState, DisconnectReason } from '@whiskeysockets/baileys';
 import { GoogleGenAI } from '@google/genai';
 import pino from 'pino';
 
 // Inisialisasi Google Gemini AI dengan API Key Anda
-const ai = new GoogleGenAI({ apiKey: 'AQ.Ab8RN6J9XXYuIU_MSMBEIthP6HDxKEva7HY8rE95ghir4Q14NQ' });
+const ai = new GoogleGenAI({ apiKey: 'AQ.Ab8RN6J9XXYIU_MSMBEiThP6HDXKeva7HY9e5hgir4Q14NQ' });
 
 async function startBot() {
     const { state, saveCreds } = await useMultiFileAuthState('auth_info');
 
     const sock = makeWASocket({
         auth: state,
-        printQRInTerminal: true,
+        printQRTerminal: true,
         logger: pino({ level: 'silent' })
     });
 
@@ -21,9 +21,11 @@ async function startBot() {
         if (connection === 'close') {
             const shouldReconnect = lastDisconnect?.error?.output?.statusCode !== DisconnectReason.loggedOut;
             console.log('Koneksi terputus, menghubungkan ulang...', shouldReconnect);
-            if (shouldReconnect) startBot();
+            if (shouldReconnect) {
+                startBot();
+            }
         } else if (connection === 'open') {
-            console.log('✅ Bot WhatsApp AAQ Store berhasil terhubung!');
+            console.log('Bot WhatsApp AAQ Store berhasil terhubung!');
         }
     });
 
@@ -33,17 +35,18 @@ async function startBot() {
 
         const senderNumber = msg.key.remoteJid;
         const messageText = msg.message.conversation || msg.message.extendedTextMessage?.text;
+
         if (!messageText) return;
 
         try {
             const promptSystem = `
-                Kamu adalah Customer Service AI yang ramah untuk "AAQ Store", toko online game milik Anugrah Al Qadri.
-                Toko ini menyediakan:
-                - Garena Undawn Gold (Stok bersih siap kirim, harga mulai Rp 22.000 / 1M, ada diskon grosir).
-                - Jasa joki rank, rekber, dan penjualan item MMORPG / akun premium.
-                
-                Tugasmu: Jawab pertanyaan pembeli dengan ramah, sopan, informatif, dan gaya bahasa anak gaming/store online Indonesia. 
-                Pertanyaan pembeli: "${messageText}"
+            Kamu adalah Customer Service AI yang ramah untuk "AAQ Store", toko online game milik Anugrah Al Qadri.
+            Toko ini menyediakan:
+            - Garena Undawn Gold (Stok bersih siap kirim, harga mulai Rp 22.000 / 1M, ada diskon grosir).
+            - Jasa joki rank, rekber, dan penjualan item MMORPG / akun premium.
+
+            Tugasmu: Jawab pertanyaan pembeli dengan ramah, sopan, informatif, dan gaya bahasa anak gaming/store online Indonesia.
+            Pertanyaan pembeli: "${messageText}"
             `;
 
             const response = await ai.models.generateContent({
